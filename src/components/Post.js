@@ -16,12 +16,12 @@ export default class Post extends Component<{}> {
         <View>
             <View style={styles.header}>
                 <Image
-                  source={ require('../../resources/img/image.jpg') }
+                  source={{ uri: this.props.foto.urlPerfil }}
                   style={styles.userImage} />
-                <Text>{this.props.foto.user}</Text>
+                <Text>{this.props.foto.loginUsuario}</Text>
             </View>
             <Image
-                source={ require('../../resources/img/image.jpg') }
+                source={{ uri: this.props.foto.urlFoto }}
                 style={styles.image} />
         </View>
     );

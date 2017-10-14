@@ -8,19 +8,27 @@ import {
 import Post from './components/Post';
 
 export default class App extends Component<{}> {
-  render() {
-    const fotos = [
-      { id: 1, user: 'cauequeiroz' },
-      { id: 2, user: 'hugocardoso' },
-      { id: 3, user: 'bdmstyle' },
-      { id: 4, user: 'jleber' }
-    ]
 
+  constructor() {
+
+    super();
+    this.state = { fotos: [] };
+  }
+
+  componentDidMount() {
+
+    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
+      .then(response => response.json())
+      .then(response => this.setState({ fotos: response }));
+  }
+
+  render() {
+    
     return (
       <FlatList
         style={styles.container}
         keyExtractor={ item => item.id }
-        data={ fotos }
+        data={ this.state.fotos }
         renderItem={ ({item}) =>
           <Post foto={item} />
         } />
