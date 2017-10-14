@@ -5,24 +5,61 @@ import {
   Text,
   View,
   Image,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 
 const screen_width = Dimensions.get('screen').width;
 
 export default class Post extends Component<{}> {
+
+  constructor(props) {
+    
+    super(props);
+    this.state = { picture: this.props.picture };
+  }
+
+  loadLikeImage(liked) {
+    return liked
+      ? require('../../resources/img/s2-checked.png')
+      : require('../../resources/img/s2.png')
+  }
+
+  like() {
+
+    let newPicture = {
+      ...this.state.picture,
+      likeada: !this.state.picture.likeada
+    };
+
+    this.setState({ picture: newPicture });
+  }
+
   render() {
+    
+    const { picture } = this.state;
+
     return (
         <View>
             <View style={styles.header}>
                 <Image
-                  source={{ uri: this.props.foto.urlPerfil }}
+                  source={{ uri: picture.urlPerfil }}
                   style={styles.userImage} />
-                <Text>{this.props.foto.loginUsuario}</Text>
+                <Text>{picture.loginUsuario}</Text>
             </View>
+
             <Image
-                source={{ uri: this.props.foto.urlFoto }}
-                style={styles.image} />
+              source={{ uri: picture.urlFoto }}
+              style={styles.image} />
+            
+            <View style={styles.likeSection}>
+              <TouchableOpacity onPress={this.like.bind(this)}>
+                <Image
+                  source={ this.loadLikeImage(picture.likeada) }
+                  style={styles.likeButton} />
+              </TouchableOpacity>
+            </View>
+
         </View>
     );
   }
@@ -43,5 +80,12 @@ const styles = StyleSheet.create({
   image: {
     width: screen_width,
     height: screen_width
+  },
+  likeSection: {
+    margin: 10
+  },
+  likeButton: {
+    width: 40,
+    height: 40
   }
 })

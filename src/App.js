@@ -12,14 +12,14 @@ export default class App extends Component<{}> {
   constructor() {
 
     super();
-    this.state = { fotos: [] };
+    this.state = { pictures: [] };
   }
 
   componentDidMount() {
 
     fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
       .then(response => response.json())
-      .then(response => this.setState({ fotos: response }));
+      .then(response => this.setState({ pictures: response }));
   }
 
   render() {
@@ -28,9 +28,9 @@ export default class App extends Component<{}> {
       <FlatList
         style={styles.container}
         keyExtractor={ item => item.id }
-        data={ this.state.fotos }
+        data={ this.state.pictures }
         renderItem={ ({item}) =>
-          <Post foto={item} />
+          <Post picture={item} />
         } />
     );
   }
