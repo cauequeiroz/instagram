@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   FlatList
 } from 'react-native';
@@ -24,8 +23,8 @@ export default class App extends Component<{}> {
     return (
       <FlatList
         style={styles.container}
-        keyExtractor={ item => item.id }
         data={ this.state.pictures }
+        keyExtractor={ item => item.id }
         renderItem={ ({item}) =>
           <Post picture={item} />
         } />
